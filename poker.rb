@@ -15,6 +15,14 @@ class Poker
     puts "round number #{@@round}"
   end
 
+  def royal_flush(player)
+    straight_flush(player) && @hands[player].sort .sort { |s, v| s[1] <=> v[1] }[-1][1] === 14
+  end
+
+  def straight_flush(player)
+    straight(player) && flush(player)
+  end
+
   def flush(player)
     @hands[player].group_by { |s,v| s }.length === 1
   end
@@ -35,7 +43,7 @@ class Poker
   end
 
   def full_house(player)
-    @hands[player].group_by { |s, v| v }.map { |s, v| v.length }.include?(3)  && @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }.include?(2)
+    three_of_a_kind(player)  && pair(player)
   end
 
   def three_of_a_kind(player)
@@ -46,21 +54,12 @@ class Poker
     @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }.include?(2) && @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }.length === 3
   end
 
-
   def pair(player)
     @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }.include?(2)
   end
 
   def high_card(player)
     @hands[player].sort { |s, v| s[1] <=> v[1] }[-1][1]
-  end
-
-  def straight_flush(player)
-    straight(player) && flush(player)
-  end
-
-  def royal_flush(player)
-    straight_flush(player) && @hands[player].sort .sort { |s, v| s[1] <=> v[1] }[-1][1] === 14
   end
 
   def winner
