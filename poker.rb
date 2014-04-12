@@ -43,20 +43,12 @@ class Poker
   end
 
   def two_pair(player)
-    if @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }.include?(2) && @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }.length === 3
-      return true
-    else
-      return false
-    end
+    @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }.include?(2) && @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }.length === 3
   end
 
 
   def pair(player)
-    if @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }.include?(2)
-       return true
-    else
-      return false
-    end
+    @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }.include?(2)
   end
 
   def high_card(player)
@@ -64,19 +56,11 @@ class Poker
   end
 
   def straight_flush(player)
-    if straight(player) && flush(player)
-      return true
-    else
-      return false
-    end
+    straight(player) && flush(player)
   end
 
   def royal_flush(player)
-    if straight_flush(player) && @hands[player].sort .sort { |s, v| s[1] <=> v[1] }[-1][1] === 14
-      return true
-    else
-      return false
-    end
+    straight_flush(player) && @hands[player].sort .sort { |s, v| s[1] <=> v[1] }[-1][1] === 14
   end
 
   def winner
