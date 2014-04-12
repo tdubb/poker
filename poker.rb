@@ -16,7 +16,7 @@ class Poker
   end
 
   def royal_flush(player)
-    straight_flush(player) && @hands[player].sort .sort { |s, v| s[1] <=> v[1] }[-1][1] === 14
+    straight_flush(player) && @hands[player].sort { |s, v| s[1] <=> v[1] }[-1][1] === 14
   end
 
   def straight_flush(player)
