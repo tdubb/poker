@@ -23,6 +23,14 @@ class Poker
     straight(player) && flush(player)
   end
 
+  def four_of_a_kind(player)
+    @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }.include?(4)
+  end
+
+  def full_house(player)
+    three_of_a_kind(player)  && pair(player)
+  end
+
   def flush(player)
     @hands[player].group_by { |s,v| s }.length === 1
   end
@@ -36,14 +44,6 @@ class Poker
       end   
     end
     return straight
-  end
-
-  def four_of_a_kind(player)
-    @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }.include?(4)
-  end
-
-  def full_house(player)
-    three_of_a_kind(player)  && pair(player)
   end
 
   def three_of_a_kind(player)
