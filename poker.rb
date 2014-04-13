@@ -1,4 +1,4 @@
-hand_a = { player_1: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 6]], player_2: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 7]], player_3: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 8]] }
+hand_a = { player_1: [["s", 1],["q", 1],["q", 3], ["q", 3],["q", 6]], player_2: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 7]], player_3: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 8]] }
 hand_b = { player_1: [["q", 10],["q", 11],["q", 12], ["q", 13],["q", 14]], player_2: [["q", 10],["q", 11],["q", 12], ["q", 13],["q", 7]], player_3: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 8]] }
 hand_c = { player_1: [["s", 2],["q", 3],["q", 4], ["q", 5],["q", 6]], player_2: [["s", 6],["q", 7],["q", 8], ["q", 9],["q", 10]], player_3: [["s", 5],["q", 6],["q", 7], ["q", 8],["q", 9]] }
 hand_d = { player_1: [["s", 1],["q", 1],["q", 1], ["q", 4],["q", 4]], player_2: [["s", 1],["q", 2],["q", 3], ["q", 10],["q", 5]], player_3: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 8]] }
@@ -28,7 +28,7 @@ class Poker
   end
 
   def full_house(player)
-    three_of_a_kind(player)  && pair(player)
+    three_of_a_kind(player) && pair(player)
   end
 
   def flush(player)
@@ -51,7 +51,8 @@ class Poker
   end
 
   def two_pair(player)
-    @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }.include?(2) && @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }.length === 3
+    x = @hands[player].group_by{ |s, v| v }.map { |s, v| v.length }
+    x.include?(2) && x.length === 3
   end
 
   def pair(player)
@@ -73,12 +74,6 @@ class Poker
       end
     end
     l = winner.length
-    if l > 1
-      answer = {}
-      winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
-      winner = answer.sort_by {|_key, value| value}
-      return puts "winner is #{winner[-1][0]} with a royal_flush"
-    end
     if l === 1
       return puts "winner is #{winner[-1]} with a royal_flush"
     end
@@ -95,7 +90,7 @@ class Poker
       answer = {}
       winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
       winner = answer.sort_by {|_key, value| value}
-      return puts "winner is #{winner[-1][0]} with a straight flush"
+      return puts "winner is #{winner[-1][0]} with a straight flush and a high card of #{winner[-1][1]}"
     end
     if l === 1
       return puts "winner is #{winner[-1]} with a straight flush"
@@ -113,10 +108,10 @@ class Poker
       answer = {}
       winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
       winner = answer.sort_by {|_key, value| value}
-      return puts "winner is #{winner[-1][0]} with a four of a kind"
+      return puts "winner is #{winner[-1][0]} with four of a kind and a high card of #{winner[-1][1]}"
     end
     if l === 1
-      return puts "winner is #{winner[-1]} with a four of a kind"
+      return puts "winner is #{winner[-1]} with four of a kind"
     end
 
     winner = []
@@ -131,7 +126,7 @@ class Poker
       answer = {}
       winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
       winner = answer.sort_by {|_key, value| value}
-      return puts "winner is #{winner[-1][0]} with a full house"
+      return puts "winner is #{winner[-1][0]} with a full house and a high card of #{winner[-1][1]}"
     end
     if l === 1
       return puts "winner is #{winner[-1]} with a full house"
@@ -149,7 +144,7 @@ class Poker
       answer = {}
       winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
       winner = answer.sort_by {|_key, value| value}
-      return puts "winner is #{winner[-1][0]} with a flush"
+      return puts "winner is #{winner[-1][0]} with a flush and a high card of #{winner[-1][1]}"
     end
     if l === 1
       return puts "winner is #{winner[-1]} with a flush"
@@ -167,7 +162,7 @@ class Poker
       answer = {}
       winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
       winner = answer.sort_by {|_key, value| value}
-      return puts "winner is #{winner[-1][0]} with a straight"
+      return puts "winner is #{winner[-1][0]} with a straight and a high card of #{winner[-1][1]}"
     end
     if l === 1
       return puts "winner is #{winner[-1]} with a straight"
@@ -185,7 +180,7 @@ class Poker
       answer = {}
       winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
       winner = answer.sort_by {|_key, value| value}
-      return puts "winner is #{winner[-1][0]} with a three of a kind"
+      return puts "winner is #{winner[-1][0]} with a three of a kind and a high card of #{winner[-1][1]}"
     end
     if l === 1
       return puts "winner is #{winner[-1]} with a three of a kind"
@@ -203,10 +198,10 @@ class Poker
       answer = {}
       winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
       winner = answer.sort_by {|_key, value| value}
-      return puts "winner is #{winner[-1][0]} with a two pair"
+      return puts "winner is #{winner[-1][0]} with two pair and a high card of #{winner[-1][1]}"
     end
     if l === 1
-      return puts "winner is #{winner[-1]} with a two pair"
+      return puts "winner is #{winner[-1]} with two pair"
     end
 
     winner = []
@@ -220,8 +215,8 @@ class Poker
     if l > 1
       answer = {}
       winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
-      winner = answer.sort_by {|_key, value| value}
-      return puts "winner is #{winner[-1][0]} with a pair"
+      winner = answer.sort_by {|key, value| value}
+      return puts "winner is #{winner[-1][0]} with a pair and a high card of #{winner[-1][1]}"
     end
     if l === 1
       return puts "winner is #{winner[-1]} with a pair"
