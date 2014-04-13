@@ -64,8 +64,7 @@ class Poker
   end
 
   def winner
-
-
+    # finds royal flush
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
@@ -77,7 +76,7 @@ class Poker
     if l === 1
       return puts "winner is #{winner[-1]} with a royal_flush"
     end
-
+    # finds straight flush
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
@@ -95,7 +94,7 @@ class Poker
     if l === 1
       return puts "winner is #{winner[-1]} with a straight flush"
     end
-
+    # finds four of a kind
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
@@ -113,7 +112,7 @@ class Poker
     if l === 1
       return puts "winner is #{winner[-1]} with four of a kind"
     end
-
+    # finds full house
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
@@ -131,7 +130,7 @@ class Poker
     if l === 1
       return puts "winner is #{winner[-1]} with a full house"
     end
-
+    # finds flush
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
@@ -149,7 +148,7 @@ class Poker
     if l === 1
       return puts "winner is #{winner[-1]} with a flush"
     end
-
+    # finds straight
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
@@ -167,7 +166,7 @@ class Poker
     if l === 1
       return puts "winner is #{winner[-1]} with a straight"
     end
-    
+    # finds three of a kind
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
@@ -185,7 +184,7 @@ class Poker
     if l === 1
       return puts "winner is #{winner[-1]} with a three of a kind"
     end
-
+    # finds two pair
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
@@ -203,7 +202,7 @@ class Poker
     if l === 1
       return puts "winner is #{winner[-1]} with two pair"
     end
-
+    # finds one pair
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
@@ -221,7 +220,7 @@ class Poker
     if l === 1
       return puts "winner is #{winner[-1]} with a pair"
     end
-
+    # finds high card
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
