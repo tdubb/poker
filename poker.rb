@@ -1,6 +1,6 @@
 hand_a = { player_1: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 6]], player_2: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 7]], player_3: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 8]] }
-hand_b = { player_1: [["q", 10],["q", 11],["q", 12], ["q", 13],["q", 14]], player_2: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 7]], player_3: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 8]] }
-hand_c = { player_1: [["s", 1],["q", 2],["q", 10], ["q", 4],["q", 6]], player_2: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 5]], player_3: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 8]] }
+hand_b = { player_1: [["q", 10],["q", 11],["q", 12], ["q", 13],["q", 14]], player_2: [["q", 10],["q", 11],["q", 12], ["q", 13],["q", 7]], player_3: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 8]] }
+hand_c = { player_1: [["s", 2],["q", 3],["q", 4], ["q", 5],["q", 6]], player_2: [["s", 6],["q", 7],["q", 8], ["q", 9],["q", 10]], player_3: [["s", 5],["q", 6],["q", 7], ["q", 8],["q", 9]] }
 hand_d = { player_1: [["s", 1],["q", 1],["q", 1], ["q", 4],["q", 4]], player_2: [["s", 1],["q", 2],["q", 3], ["q", 10],["q", 5]], player_3: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 8]] }
 class Poker
   @@round = 0
@@ -63,96 +63,170 @@ class Poker
   end
 
   def winner
+
+
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
-      winner.push(royal_flush(player))
+      if royal_flush(player)
+        winner.push(player)
+      end
     end
-    if winner.include?(true)
-      win = Hash[winner.map.with_index.to_a]
-      w = win[true]
-      return puts "winner is #{@hands.keys[w]} with a royal flush"
+    l = winner.length
+    if l > 1
+      answer = {}
+      winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
+      winner = answer.sort_by {|_key, value| value}
+      return puts "winner is #{winner[-1][0]} with a royal_flush"
     end
+    if l === 1
+      return puts "winner is #{winner[-1]} with a royal_flush"
+    end
+
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
-      winner.push(straight_flush(player))
+      if straight_flush(player)
+        winner.push(player)
+      end
     end
-    if winner.include?(true)
-      win = Hash[winner.map.with_index.to_a]
-      w = win[true]
-      return puts "winner is #{@hands.keys[w]} with a straight flush"
+    l = winner.length
+    if l > 1
+      answer = {}
+      winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
+      winner = answer.sort_by {|_key, value| value}
+      return puts "winner is #{winner[-1][0]} with a straight flush"
     end
+    if l === 1
+      return puts "winner is #{winner[-1]} with a straight flush"
+    end
+
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
-      winner.push(four_of_a_kind(player))
+      if four_of_a_kind(player)
+        winner.push(player)
+      end
     end
-    if winner.include?(true)
-      win = Hash[winner.map.with_index.to_a]
-      w = win[true]
-      return puts "winner is #{@hands.keys[w]} with four of a kind"
+    l = winner.length
+    if l > 1
+      answer = {}
+      winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
+      winner = answer.sort_by {|_key, value| value}
+      return puts "winner is #{winner[-1][0]} with a four of a kind"
     end
+    if l === 1
+      return puts "winner is #{winner[-1]} with a four of a kind"
+    end
+
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
-      winner.push(full_house(player))
+      if full_house(player)
+        winner.push(player)
+      end
     end
-    if winner.include?(true)
-      win = Hash[winner.map.with_index.to_a]
-      w = win[true]
-      return puts "winner is #{@hands.keys[w]} with a full house"
+    l = winner.length
+    if l > 1
+      answer = {}
+      winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
+      winner = answer.sort_by {|_key, value| value}
+      return puts "winner is #{winner[-1][0]} with a full house"
     end
+    if l === 1
+      return puts "winner is #{winner[-1]} with a full house"
+    end
+
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
-      winner.push(flush(player))
+      if flush(player)
+        winner.push(player)
+      end
     end
-    if winner.include?(true)
-      win = Hash[winner.map.with_index.to_a]
-      w = win[true]
-      return puts "winner is #{@hands.keys[w]} with a flush"
+    l = winner.length
+    if l > 1
+      answer = {}
+      winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
+      winner = answer.sort_by {|_key, value| value}
+      return puts "winner is #{winner[-1][0]} with a flush"
     end
+    if l === 1
+      return puts "winner is #{winner[-1]} with a flush"
+    end
+
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
-      winner.push(straight(player))
+      if straight(player)
+        winner.push(player)
+      end
     end
-    if winner.include?(true)
-      win = Hash[winner.map.with_index.to_a]
-      w = win[true]
-      return puts "winner is #{@hands.keys[w]} with a straight"
+    l = winner.length
+    if l > 1
+      answer = {}
+      winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
+      winner = answer.sort_by {|_key, value| value}
+      return puts "winner is #{winner[-1][0]} with a straight"
     end
+    if l === 1
+      return puts "winner is #{winner[-1]} with a straight"
+    end
+    
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
-      winner.push(three_of_a_kind(player))
+      if three_of_a_kind(player)
+        winner.push(player)
+      end
     end
-    if winner.include?(true)
-      win = Hash[winner.map.with_index.to_a]
-      w = win[true]
-      return puts "winner is #{@hands.keys[w]} with three of a kind"
+     l = winner.length
+    if l > 1
+      answer = {}
+      winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
+      winner = answer.sort_by {|_key, value| value}
+      return puts "winner is #{winner[-1][0]} with a three of a kind"
     end
+    if l === 1
+      return puts "winner is #{winner[-1]} with a three of a kind"
+    end
+
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
-      winner.push(two_pair(player))
+      if two_pair(player)
+        winner.push(player)
+      end
     end
-    if winner.include?(true)
-      win = Hash[winner.map.with_index.to_a]
-      w = win[true]
-      return puts "winner is #{@hands.keys[w]} with two pair"
+    l = winner.length
+    if l > 1
+      answer = {}
+      winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
+      winner = answer.sort_by {|_key, value| value}
+      return puts "winner is #{winner[-1][0]} with a two pair"
     end
+    if l === 1
+      return puts "winner is #{winner[-1]} with a two pair"
+    end
+
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
-      winner.push(pair(player))
+      if pair(player)
+        winner.push(player)
+      end
     end
-    if winner.include?(true)
-      win = Hash[winner.map.with_index.to_a]
-      w = win[true]
-      return puts "winner is #{@hands.keys[w]} with a pair"
+    l = winner.length
+    if l > 1
+      answer = {}
+      winner.each { |e| answer[e] = @hands[e].sort { |s, v| s[1] <=> v[1] }[-1][1] }
+      winner = answer.sort_by {|_key, value| value}
+      return puts "winner is #{winner[-1][0]} with a pair"
     end
+    if l === 1
+      return puts "winner is #{winner[-1]} with a pair"
+    end
+
     winner = []
     1.upto(@players) do |n|
       player = ("player_" + n.to_s).to_sym
@@ -172,7 +246,7 @@ game_two.winner
 
 game_three = Poker.new(hand_c)
 game_three.winner
-# winner is player_2 with a straight
+#winner is player_2 with a straight(player_2 has the highest straight)
 
 game_four = Poker.new(hand_d)
 game_four.winner
