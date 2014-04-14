@@ -1,4 +1,4 @@
-hand_a = { player_1: [["s", 1],["q", 1],["q", 3], ["q", 3],["q", 6]], player_2: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 7]], player_3: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 8]] }
+hand_a = { player_1: [["s", 1],["q", 2],["q", 3], ["q", 3],["q", 6]], player_2: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 7]], player_3: [["s", 1],["q", 2],["q", 2], ["q", 8],["q", 8]] }
 hand_b = { player_1: [["q", 10],["q", 11],["q", 12], ["q", 13],["q", 14]], player_2: [["q", 10],["q", 11],["q", 12], ["q", 13],["q", 7]], player_3: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 8]] }
 hand_c = { player_1: [["s", 2],["q", 3],["q", 4], ["q", 5],["q", 6]], player_2: [["s", 6],["q", 7],["q", 8], ["q", 9],["q", 10]], player_3: [["s", 5],["q", 6],["q", 7], ["q", 8],["q", 9]] }
 hand_d = { player_1: [["s", 1],["q", 1],["q", 1], ["q", 4],["q", 4]], player_2: [["s", 1],["q", 2],["q", 3], ["q", 10],["q", 5]], player_3: [["s", 1],["q", 2],["q", 3], ["q", 4],["q", 8]] }
@@ -232,7 +232,7 @@ end
 
 game_one = Poker.new(hand_a)
 game_one.winner
-# winner is player_3 with a high card
+# winner is player_3 with a two pair
 
 game_two = Poker.new(hand_b)
 game_two.winner
@@ -240,7 +240,7 @@ game_two.winner
 
 game_three = Poker.new(hand_c)
 game_three.winner
-#winner is player_2 with a straight(player_2 has the highest straight)
+#winner is player_2 with a straight with a high card of 10(player_2 has the highest straight)
 
 game_four = Poker.new(hand_d)
 game_four.winner
